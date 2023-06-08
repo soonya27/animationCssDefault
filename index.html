@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/animation.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+
+        </header>
+        <section id="visual">
+            <div class="inner">
+                <h2>ANIMATION EXAMPLE</h2>
+            </div>
+        </section>
+        <main id="container">
+            <div id="content">
+                <article>
+                    <div class="text-area">
+                        <span class="text">Main1 Title</span>
+                    </div>
+                    <div class="text-area">
+                        <span class="text">Title Text Lorem ipsum dolor sit amet.</span>
+                    </div>
+                </article>
+                <article class="main1">
+                    <div class="flex">
+                        <div class="box"></div>
+                        <div class="box"></div>
+                        <div class="box"></div>
+                    </div>
+                </article>
+
+                <article>
+                    <p class="blur">Main2 Title</p>
+                    <p class="blur">Title Text Lorem ipsum dolor sit amet.</p>
+                </article>
+                <article class="main3">
+                    <div class="flex">
+                        <div class="box trans-up"></div>
+                        <div class="box trans-up"></div>
+                        <div class="box trans-up"></div>
+                    </div>
+                </article>
+
+                <article>
+                    <p class="left-right">Main3 Title</p>
+                    <p class="left-right">Title Text Lorem ipsum dolor sit amet.</p>
+                </article>
+                <article class="main2">
+                    <div class="flex">
+                        <div class="box"></div>
+                        <div class="box"></div>
+                        <div class="box"></div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <footer id="footer"></footer>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+        $(window).on('scroll resize', () => {
+            scrollAnim();
+        }).trigger('resize');
+
+        function scrollAnim() {
+            const anims = [...document.querySelectorAll('article')];  //animation selector
+            if (anims.length < 1) {
+                return;
+            }
+
+            const height = $(window).innerHeight();
+            const point = height * 0.8;
+            function observerFun(item) {
+                var pos = $(item).offset().top;
+                var dataOffset = $(item).data('anim-offset') ?? 0;
+
+                // console.log('아이템 offset = ' + pos)
+                // console.log('scrollY = ' + window.scrollY)
+                // console.log('point = ' + point)
+                // console.log('dataOffset = ' + dataOffset)
+                if (pos < window.scrollY + point + dataOffset) {
+                    $(item).addClass('on');
+                } else if (pos > window.scrollY + height) {
+                    $(item).removeClass('on');
+                }
+            }
+
+            anims.forEach(anim => {
+                observerFun(anim);
+            });
+        }
+    </script>
+</body>
+
+</html>
